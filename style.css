@@ -1,14 +1,15 @@
-/* --- ROOT VARIABLES FOR EASY THEME CHANGES --- */
+/* --- CYBERPUNK THEME VARIABLES --- */
 :root {
-    --primary-color: #9c27b0; /* A vibrant purple */
-    --secondary-color: #3f51b5; /* A complementary blue */
-    --background-color: #121212;
-    --surface-color: rgba(28, 28, 30, 0.85); /* Semi-transparent surface */
-    --text-color: #EAEAEA;
-    --glow-color: rgba(156, 39, 176, 0.7);
+    --primary-color: #00FFFF; /* Cyan */
+    --secondary-color: #FF00C1; /* Magenta */
+    --background-color: #0B0C1E; /* Deep Space Blue */
+    --surface-color: rgba(23, 27, 54, 0.8); /* Semi-transparent navy */
+    --text-color: #E0E0E0;
+    --glow-cyan: rgba(0, 255, 255, 0.5);
+    --glow-magenta: rgba(255, 0, 193, 0.5);
 }
 
-/* --- BASIC RESET & GLOBAL STYLES --- */
+/* --- GLOBAL STYLES & FONT SETUP --- */
 * {
     margin: 0;
     padding: 0;
@@ -18,28 +19,43 @@
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--background-color);
-    background-image: url('background.jpg'); /* YOUR EPIC BACKGROUND */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Creates a parallax-like effect */
     color: var(--text-color);
-    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* --- ANIMATED BACKGROUND GRID --- */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(var(--primary-color, 0.1) 1px, transparent 1px), 
+        linear-gradient(90deg, var(--primary-color, 0.1) 1px, transparent 1px);
+    background-size: 35px 35px;
+    animation: moveGrid 20s linear infinite;
+    z-index: -1;
+}
+
+@keyframes moveGrid {
+    from { background-position: 0 0; }
+    to { background-position: 35px 70px; }
 }
 
 /* --- NAVIGATION BAR --- */
 nav {
     position: sticky;
     top: 0;
-    width: 100%;
     padding: 1rem 0;
-    background-color: rgba(18, 18, 18, 0.7); /* Frosted glass effect */
+    background-color: rgba(11, 12, 30, 0.7);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
     z-index: 1000;
 }
 
 .nav-container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
@@ -48,179 +64,147 @@ nav {
 }
 
 .logo {
+    font-family: 'Rajdhani', sans-serif;
     font-weight: 700;
-    font-size: 1.5rem;
-    color: var(--text-color);
+    font-size: 1.8rem;
+    color: var(--primary-color);
     text-decoration: none;
+    text-shadow: 0 0 10px var(--glow-cyan);
 }
 
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-}
-
-nav a {
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
+/* --- GLITCH EFFECT FOR LOGO --- */
+.glitch {
     position: relative;
-    padding-bottom: 5px;
 }
-
-nav a:not(.logo)::after {
-    content: '';
+.glitch:hover::before, .glitch:hover::after {
+    content: attr(data-text);
     position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-    transition: width 0.3s ease;
-}
-
-nav a:hover:not(.logo)::after,
-nav a.active:not(.logo)::after {
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background: var(--background-color);
+    overflow: hidden;
 }
-
-nav a:hover:not(.logo), nav a.active:not(.logo) {
-    color: #fff;
+.glitch:hover::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--secondary-color);
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
 }
-
-
-/* --- MAIN CONTENT CONTAINER --- */
-.container {
-    max-width: 800px;
-    margin: 4rem auto;
-    padding: 2rem;
+.glitch:hover::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--glow-cyan), 2px 2px var(--secondary-color);
+    animation: glitch-anim-2 2s infinite linear alternate-reverse;
 }
+@keyframes glitch-anim-1 { 0% { clip-path: inset(5% 0 90% 0); } 100% { clip-path: inset(70% 0 5% 0); } }
+@keyframes glitch-anim-2 { 0% { clip-path: inset(90% 0 5% 0); } 100% { clip-path: inset(5% 0 90% 0); } }
+
+
+nav ul { list-style: none; display: flex; gap: 2.5rem; }
+nav a { color: var(--text-color); text-decoration: none; font-weight: 600; transition: color 0.3s, text-shadow 0.3s; }
+nav a:hover, nav a.active { color: var(--primary-color); text-shadow: 0 0 8px var(--glow-cyan); }
+
+
+/* --- MAIN CONTENT & CARDS --- */
+.container { max-width: 700px; margin: 4rem auto; padding: 0 2rem; }
 
 section {
-    background-color: var(--surface-color);
-    backdrop-filter: blur(5px);
+    background: var(--surface-color);
     padding: 2.5rem;
-    margin-bottom: 2rem;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 3rem;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    /* The "cut corner" effect */
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+    position: relative;
 }
+
+/* Glowing border effect */
+section::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    z-index: -1;
+    filter: blur(5px);
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+section:hover::before { opacity: 1; }
 
 h2 {
-    font-size: 1.8rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2rem;
     font-weight: 700;
-    text-transform: uppercase;
-    text-align: center;
+    text-align: left;
     margin-bottom: 2rem;
     color: var(--primary-color);
-    text-shadow: 0 0 10px var(--glow-color);
+    letter-spacing: 2px;
 }
 
-/* --- LATEST INFO CARD --- */
-.tournament-card {
-    text-align: center;
-}
+.prize-pool { font-size: 1.5rem; color: #4CAF50; font-weight: bold; text-shadow: 0 0 8px rgba(76, 175, 80, 0.7); text-align: center; }
+.tournament-card h3 { font-size: 2rem; margin-bottom: 1rem; text-align: center; }
 
-.tournament-card h3 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-.prize-pool {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #4CAF50;
-    text-shadow: 0 0 8px rgba(76, 175, 80, 0.7);
-}
-
-
-/* --- SEXY FORM STYLING --- */
-.form-group {
-    position: relative;
-    margin-bottom: 1.8rem;
-}
-
+/* --- FUTURISTIC FORM --- */
+.form-group { margin-bottom: 1.5rem; }
 .form-group input {
     width: 100%;
-    padding: 12px 10px;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background-color: transparent;
+    padding: 14px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.3);
     color: var(--text-color);
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
     transition: all 0.3s ease;
 }
-
-.form-group label {
-    position: absolute;
-    top: 12px;
-    left: 10px;
-    color: rgba(255, 255, 255, 0.5);
-    pointer-events: none;
-    transition: all 0.3s ease;
-}
-
-/* Floating Label Magic */
-.form-group input:focus + label,
-.form-group input:not(:placeholder-shown) + label {
-    top: -10px;
-    left: 5px;
-    font-size: 0.8rem;
-    background-color: #1c1c1e; /* Match section bg to "cut out" the border */
-    padding: 0 5px;
-    color: var(--primary-color);
-}
-
+.form-group input::placeholder { color: rgba(224, 224, 224, 0.5); }
 .form-group input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 15px var(--glow-color);
+    box-shadow: 0 0 15px var(--glow-cyan);
 }
 
-/* --- THE CALL TO ACTION BUTTON --- */
+/* --- THE BUTTON --- */
 button {
-    display: block;
     width: 100%;
     padding: 15px;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    text-transform: uppercase;
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 20px rgba(156, 39, 176, 0.5);
+    position: relative;
+    overflow: hidden;
+    transition: color 0.4s ease-in-out;
 }
 
-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 25px var(--glow-color);
+button:hover { color: var(--background-color); }
+
+/* Animated fill effect on hover */
+button::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: var(--primary-color);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease-in-out;
+    z-index: -1;
 }
+button:hover::before { transform: translateX(0); }
+
+/* --- ANIMATIONS & STATUS --- */
+.fade-in { animation: fadeIn 1s ease-out forwards; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
 #status-message {
     margin-top: 1.5rem;
     text-align: center;
     font-weight: 600;
     font-size: 1.1rem;
-}
-
-/* --- ANIMATIONS --- */
-.fade-in {
-    animation: fadeInUp 0.8s ease-out forwards;
-    opacity: 0;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    height: 20px;
 }
