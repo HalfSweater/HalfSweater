@@ -1,4 +1,14 @@
-/* Basic Reset & Fonts */
+/* --- ROOT VARIABLES FOR EASY THEME CHANGES --- */
+:root {
+    --primary-color: #9c27b0; /* A vibrant purple */
+    --secondary-color: #3f51b5; /* A complementary blue */
+    --background-color: #121212;
+    --surface-color: rgba(28, 28, 30, 0.85); /* Semi-transparent surface */
+    --text-color: #EAEAEA;
+    --glow-color: rgba(156, 39, 176, 0.7);
+}
+
+/* --- BASIC RESET & GLOBAL STYLES --- */
 * {
     margin: 0;
     padding: 0;
@@ -6,111 +16,211 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #1a1a1a;
-    color: #f0f0f0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    background-image: url('background.jpg'); /* YOUR EPIC BACKGROUND */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Creates a parallax-like effect */
+    color: var(--text-color);
     line-height: 1.6;
 }
 
-/* Navigation */
+/* --- NAVIGATION BAR --- */
 nav {
-    background-color: #111;
-    padding: 1rem;
-    border-bottom: 2px solid #444;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    padding: 1rem 0;
+    background-color: rgba(18, 18, 18, 0.7); /* Frosted glass effect */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    text-decoration: none;
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    justify-content: center;
     gap: 2rem;
 }
 
 nav a {
-    color: #f0f0f0;
+    color: var(--text-color);
     text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: bold;
-    transition: color 0.3s;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    position: relative;
+    padding-bottom: 5px;
 }
 
-nav a:hover, nav a.active {
-    color: #00aaff; /* A bright blue for highlights */
+nav a:not(.logo)::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transition: width 0.3s ease;
 }
 
-/* Main Content Area */
-main {
+nav a:hover:not(.logo)::after,
+nav a.active:not(.logo)::after {
+    width: 100%;
+}
+
+nav a:hover:not(.logo), nav a.active:not(.logo) {
+    color: #fff;
+}
+
+
+/* --- MAIN CONTENT CONTAINER --- */
+.container {
     max-width: 800px;
-    margin: 2rem auto;
-    padding: 1rem;
+    margin: 4rem auto;
+    padding: 2rem;
 }
 
 section {
-    background-color: #2a2a2a;
-    padding: 2rem;
+    background-color: var(--surface-color);
+    backdrop-filter: blur(5px);
+    padding: 2.5rem;
     margin-bottom: 2rem;
-    border-radius: 8px;
-    border: 1px solid #333;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 h2 {
-    color: #00aaff;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid #444;
-    padding-bottom: 0.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--glow-color);
 }
 
-h3 {
+/* --- LATEST INFO CARD --- */
+.tournament-card {
+    text-align: center;
+}
+
+.tournament-card h3 {
+    font-size: 2rem;
     margin-bottom: 0.5rem;
 }
 
 .prize-pool {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #4CAF50; /* Green for prize money */
+    color: #4CAF50;
+    text-shadow: 0 0 8px rgba(76, 175, 80, 0.7);
 }
 
-/* Form Styling */
+
+/* --- SEXY FORM STYLING --- */
 .form-group {
-    margin-bottom: 1rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+    position: relative;
+    margin-bottom: 1.8rem;
 }
 
 .form-group input {
     width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #555;
-    background-color: #333;
-    color: #f0f0f0;
+    padding: 12px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: transparent;
+    color: var(--text-color);
     font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
 }
 
+.form-group label {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+/* Floating Label Magic */
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 5px;
+    font-size: 0.8rem;
+    background-color: #1c1c1e; /* Match section bg to "cut out" the border */
+    padding: 0 5px;
+    color: var(--primary-color);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+/* --- THE CALL TO ACTION BUTTON --- */
 button {
     display: block;
     width: 100%;
-    padding: 12px;
-    background-color: #00aaff;
+    padding: 15px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 600;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(156, 39, 176, 0.5);
 }
 
 button:hover {
-    background-color: #0088cc;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 25px var(--glow-color);
 }
 
 #status-message {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     text-align: center;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* --- ANIMATIONS --- */
+.fade-in {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
