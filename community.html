@@ -35,25 +35,20 @@
                         <p id="online-count"><span class="dot"></span>-- Online</p>
                     </div>
 
-                    <!-- NEW: Two-column container for the lists -->
-                    <div class="lists-container">
-                        
-                        <!-- Column 1: Members Online -->
-                        <div class="list-column">
-                            <h4>Members Online</h4>
-                            <ul id="member-list">
-                                <li class="loading-state">Fetching member data...</li>
-                            </ul>
-                        </div>
-
-                        <!-- Column 2: In Voice Channels -->
-                        <div class="list-column">
-                            <h4>In Voice Channels</h4>
-                            <ul id="voice-channel-list">
-                                <li class="loading-state">Checking voice activity...</li>
-                            </ul>
-                        </div>
-
+                    <!-- NEW: Dedicated box for Voice Activity -->
+                    <div id="voice-activity-box">
+                        <h4>Live in Voice</h4>
+                        <ul id="voice-channel-list">
+                            <li class="loading-state">Checking voice activity...</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Box for All Online Members -->
+                    <div id="online-members-box">
+                        <h4>Members Online</h4>
+                        <ul id="member-list">
+                            <li class="loading-state">Fetching member data...</li>
+                        </ul>
                     </div>
 
                     <a href="https://discord.gg/TSDrjaxZbw" target="_blank" rel="noopener noreferrer" class="join-button">
