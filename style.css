@@ -134,3 +134,108 @@ button:hover {
     font-size: 1.1rem;
     height: 20px;
 }
+
+/* --- ADD THIS TO THE END OF YOUR style.css FILE --- */
+
+/* --- COMMUNITY WIDGET STYLES --- */
+.discord-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.server-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+}
+
+.server-header h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.8rem;
+}
+
+#online-count {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    color: #ccc;
+}
+
+#online-count .dot {
+    width: 10px;
+    height: 10px;
+    background-color: #4CAF50; /* Green for online */
+    border-radius: 50%;
+    box-shadow: 0 0 5px #4CAF50;
+}
+
+.discord-card h4 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: -0.5rem; /* Pull member list up slightly */
+}
+
+#member-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-height: 200px; /* Limit height and allow scrolling */
+    overflow-y: auto;
+    padding-right: 10px; /* For scrollbar */
+}
+
+.member-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 5px 10px;
+    border-radius: 20px;
+    width: calc(50% - 0.5rem); /* Two members per row */
+}
+
+.member-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.member-name {
+    font-weight: 500;
+}
+
+.loading-state {
+    color: #888;
+}
+
+.join-button {
+    display: block; /* Make the link behave like a button */
+    text-decoration: none;
+    text-align: center;
+    width: 100%;
+    padding: 15px;
+    background: #5865F2; /* Official Discord purple */
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.join-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 20px rgba(88, 101, 242, 0.4);
+}
