@@ -2,24 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale-1.0">
-    <title>NMC Minecraft Esports</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Esports // Singularity</title>
     
-    <!-- Futuristic & Clean Google Fonts -->
+    <!-- Clean & Sharp Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Poppins:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Poppins:wght@400&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Animated background element -->
-    <div class="background-animation"></div>
+    <!-- This div is the canvas for our particle animation -->
+    <div id="tsparticles"></div>
 
     <nav>
         <div class="nav-container">
-            <a href="#" class="logo glitch" data-text="MC-ESPORTS">MC-ESPORTS</a>
+            <a href="#" class="logo">MC-ESPORTS</a>
             <ul>
                 <li><a href="#" class="active">Home</a></li>
                 <li><a href="#">Community</a></li>
@@ -30,8 +30,8 @@
     <div class="container">
         <main>
             <!-- Latest Info Section -->
-            <section id="latest-info" class="fade-in">
-                <h2>// LATEST INTEL</h2>
+            <section id="latest-info" class="fade-in-up">
+                <h2>LATEST TRANSMISSION</h2>
                 <div class="tournament-card">
                     <h3>Esport Minecraft Tournament</h3>
                     <p class="prize-pool">PRIZE POOL: ₹5000+</p>
@@ -39,8 +39,8 @@
             </section>
 
             <!-- Registration Section -->
-            <section id="registration" class="fade-in">
-                <h2>// SECURE YOUR SPOT</h2>
+            <section id="registration" class="fade-in-up">
+                <h2>SECURE YOUR SPOT</h2>
                 <form id="registration-form">
                     <div class="form-group">
                         <input type="text" id="fullName" name="fullName" required placeholder="Full Name">
@@ -55,17 +55,19 @@
                         <input type="text" id="ign" name="ign" required placeholder="In-Game Name (IGN)">
                     </div>
                     <div class="form-group">
-                        <input type="text" id="discordId" name="discordId" required placeholder="Discord ID (e.g., username#1234)">
+                        <input type="text" id="discordId" name="discordId" required placeholder="Discord ID (username#1234)">
                     </div>
-                    <button type="submit">
-                        <span class="button-text">REGISTER_NOW</span>
-                    </button>
+                    <button type="submit">REGISTER</button>
                 </form>
                 <p id="status-message"></p>
             </section>
         </main>
     </div>
 
+    <!-- tsParticles library for the animation -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.9.3/tsparticles.bundle.min.js"></script>
+    
+    <!-- Your custom script -->
     <script src="script.js"></script>
 </body>
 </html>
