@@ -1,4 +1,4 @@
-// --- PART 1: CURSOR GLOW EFFECT ---
+// --- PART 1: CURSOR GLOW EFFECT (UNCHANGED) ---
 (() => {
     const glow = document.getElementById("cursor-glow");
     if (!glow) return;
@@ -10,49 +10,35 @@
 })();
 
 
-// --- PART 2: FORM SUBMISSION LOGIC ---
+// --- PART 2: FORM SUBMISSION LOGIC (UPDATED) ---
 document.getElementById('registration-form').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    // --- IMPORTANT: PASTE YOUR DISCORD WEBHOOK URL HERE ---
-    const webhookURL = "https://discord.com/api/webhooks/1410313114809008158/FUvA8bxgD8Q8ASDWBWveeGabGgHIowHGfcXlkTpPdmeYgXzZDnBKzHnkGHWUf7NB0xTz"; 
-    // ---------------------------------------------------------
+    // --- UPDATED: API endpoint now points to your live Render server ---
+    const backendUrl = "https://nmc-backend-bot.onrender.com/register";
+    // ---------------------------------------------------------------------
 
     const statusMessage = document.getElementById('status-message');
     const form = event.target;
-    const fullName = form.elements['fullName'].value;
-    const age = form.elements['age'].value;
-    const email = form.elements['email'].value;
-    const ign = form.elements['ign'].value;
-    const discordId = form.elements['discordId'].value;
 
-    const payload = {
-        username: "Tournament Registration Bot",
-        avatar_url: "https://i.imgur.com/4M34hi2.png",
-        embeds: [
-            {
-                title: "New Tournament Registration!",
-                color: 4149685, // Hex for the Indigo color #3F51B5
-                fields: [
-                    { name: "Full Name", value: fullName, inline: true },
-                    { name: "Age", value: age, inline: true },
-                    { name: "Email Address", value: email, inline: false },
-                    { name: "In-Game Name (IGN)", value: ign, inline: true },
-                    { name: "Discord ID", value: discordId, inline: true }
-                ],
-                footer: { text: `Registration received at: ${new Date().toLocaleString()}` }
-            }
-        ]
+    // Create a simple object with the form data
+    const formData = {
+        fullName: form.elements['fullName'].value,
+        age: form.elements['age'].value,
+        email: form.elements['email'].value,
+        ign: form.elements['ign'].value,
+        discordId: form.elements['discordId'].value
     };
 
-    fetch(webhookURL, {
+    // Send the data to our backend server
+    fetch(backendUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(formData)
     })
     .then(response => {
         if (response.ok) {
-            statusMessage.textContent = "Registration successful! Check Discord.";
+            statusMessage.textContent = "Registration successful! A moderator will review it.";
             statusMessage.style.color = "#4CAF50";
             form.reset();
         } else {
@@ -62,7 +48,7 @@ document.getElementById('registration-form').addEventListener('submit', function
     })
     .catch(error => {
         console.error('Error:', error);
-        statusMessage.textContent = "An error occurred. Check console and try again.";
+        statusMessage.textContent = "Could not connect to the server. Please try again later.";
         statusMessage.style.color = "#f44336";
     });
 });
