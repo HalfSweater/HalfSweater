@@ -1,12 +1,10 @@
-/* --- CYBERPUNK THEME VARIABLES --- */
+/* --- SINGULARITY THEME VARIABLES --- */
 :root {
-    --primary-color: #00FFFF; /* Cyan */
-    --secondary-color: #FF00C1; /* Magenta */
-    --background-color: #0B0C1E; /* Deep Space Blue */
-    --surface-color: rgba(23, 27, 54, 0.8); /* Semi-transparent navy */
-    --text-color: #E0E0E0;
-    --glow-cyan: rgba(0, 255, 255, 0.5);
-    --glow-magenta: rgba(255, 0, 193, 0.5);
+    --primary-color: #00BFFF; /* Deep Sky Blue - a vibrant, clean blue */
+    --background-color: #000000;
+    --surface-color: rgba(10, 10, 10, 0.75); /* A slightly off-black transparent surface */
+    --text-color: #f0f0f0;
+    --glow-color: rgba(0, 191, 255, 0.6);
 }
 
 /* --- GLOBAL STYLES & FONT SETUP --- */
@@ -20,149 +18,81 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
 }
 
-/* --- ANIMATED BACKGROUND GRID --- */
-.background-animation {
+/* --- THE PARTICLE CANVAS --- */
+#tsparticles {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    background-image: 
-        linear-gradient(var(--primary-color, 0.1) 1px, transparent 1px), 
-        linear-gradient(90deg, var(--primary-color, 0.1) 1px, transparent 1px);
-    background-size: 35px 35px;
-    animation: moveGrid 20s linear infinite;
-    z-index: -1;
-}
-
-@keyframes moveGrid {
-    from { background-position: 0 0; }
-    to { background-position: 35px 70px; }
+    top: 0;
+    left: 0;
+    z-index: -1; /* Place it behind everything else */
 }
 
 /* --- NAVIGATION BAR --- */
 nav {
-    position: sticky;
-    top: 0;
-    padding: 1rem 0;
-    background-color: rgba(11, 12, 30, 0.7);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    position: sticky; top: 0; padding: 1.5rem 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(0, 191, 255, 0.2);
     z-index: 1000;
 }
 
-.nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    font-size: 1.8rem;
-    color: var(--primary-color);
-    text-decoration: none;
-    text-shadow: 0 0 10px var(--glow-cyan);
-}
-
-/* --- GLITCH EFFECT FOR LOGO --- */
-.glitch {
-    position: relative;
-}
-.glitch:hover::before, .glitch:hover::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--background-color);
-    overflow: hidden;
-}
-.glitch:hover::before {
-    left: 2px;
-    text-shadow: -2px 0 var(--secondary-color);
-    animation: glitch-anim-1 2s infinite linear alternate-reverse;
-}
-.glitch:hover::after {
-    left: -2px;
-    text-shadow: -2px 0 var(--glow-cyan), 2px 2px var(--secondary-color);
-    animation: glitch-anim-2 2s infinite linear alternate-reverse;
-}
-@keyframes glitch-anim-1 { 0% { clip-path: inset(5% 0 90% 0); } 100% { clip-path: inset(70% 0 5% 0); } }
-@keyframes glitch-anim-2 { 0% { clip-path: inset(90% 0 5% 0); } 100% { clip-path: inset(5% 0 90% 0); } }
-
-
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+.logo { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 2rem; color: var(--text-color); text-decoration: none; letter-spacing: 2px; transition: all 0.3s ease; }
+.logo:hover { color: var(--primary-color); text-shadow: 0 0 15px var(--glow-color); }
 nav ul { list-style: none; display: flex; gap: 2.5rem; }
-nav a { color: var(--text-color); text-decoration: none; font-weight: 600; transition: color 0.3s, text-shadow 0.3s; }
-nav a:hover, nav a.active { color: var(--primary-color); text-shadow: 0 0 8px var(--glow-cyan); }
-
+nav a { color: var(--text-color); text-decoration: none; font-weight: 500; font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; transition: all 0.3s ease; }
+nav a:hover, nav a.active { color: var(--primary-color); text-shadow: 0 0 10px var(--glow-color); }
 
 /* --- MAIN CONTENT & CARDS --- */
-.container { max-width: 700px; margin: 4rem auto; padding: 0 2rem; }
+.container { max-width: 700px; margin: 5rem auto; padding: 0 2rem; }
 
 section {
     background: var(--surface-color);
-    padding: 2.5rem;
+    backdrop-filter: blur(5px);
+    padding: 3rem;
     margin-bottom: 3rem;
-    border: 1px solid rgba(0, 255, 255, 0.2);
-    /* The "cut corner" effect */
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
     position: relative;
+    border: 1px solid transparent;
+    /* This creates the gradient border that fades out */
+    border-image: linear-gradient(to bottom right, rgba(0, 191, 255, 0.5), rgba(0, 191, 255, 0)) 1;
+    border-image-slice: 1;
 }
-
-/* Glowing border effect */
-section::before {
-    content: '';
-    position: absolute;
-    top: -2px; left: -2px;
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    z-index: -1;
-    filter: blur(5px);
-    opacity: 0.5;
-    transition: opacity 0.3s;
-}
-section:hover::before { opacity: 1; }
 
 h2 {
     font-family: 'Rajdhani', sans-serif;
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 700;
-    text-align: left;
-    margin-bottom: 2rem;
-    color: var(--primary-color);
-    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: var(--text-color);
+    letter-spacing: 3px;
+    text-transform: uppercase;
 }
 
 .prize-pool { font-size: 1.5rem; color: #4CAF50; font-weight: bold; text-shadow: 0 0 8px rgba(76, 175, 80, 0.7); text-align: center; }
 .tournament-card h3 { font-size: 2rem; margin-bottom: 1rem; text-align: center; }
 
-/* --- FUTURISTIC FORM --- */
+/* --- ELEGANT FORM --- */
 .form-group { margin-bottom: 1.5rem; }
 .form-group input {
     width: 100%;
     padding: 14px;
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(0, 255, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid #333;
     color: var(--text-color);
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
     transition: all 0.3s ease;
 }
-.form-group input::placeholder { color: rgba(224, 224, 224, 0.5); }
+.form-group input::placeholder { color: #888; }
 .form-group input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 15px var(--glow-cyan);
+    box-shadow: 0 0 20px -5px var(--glow-color);
 }
 
 /* --- THE BUTTON --- */
@@ -177,29 +107,25 @@ button {
     font-weight: 700;
     letter-spacing: 2px;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: color 0.4s ease-in-out;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
 }
 
-button:hover { color: var(--background-color); }
-
-/* Animated fill effect on hover */
-button::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: var(--primary-color);
-    transform: translateX(-100%);
-    transition: transform 0.4s ease-in-out;
-    z-index: -1;
+button:hover {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    box-shadow: 0 0 25px var(--glow-color);
 }
-button:hover::before { transform: translateX(0); }
 
 /* --- ANIMATIONS & STATUS --- */
-.fade-in { animation: fadeIn 1s ease-out forwards; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 1s ease-out forwards;
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
 #status-message {
     margin-top: 1.5rem;
