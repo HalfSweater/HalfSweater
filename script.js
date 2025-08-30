@@ -1,22 +1,23 @@
 // --- PART 1: CURSOR GLOW EFFECT ---
-
 (() => {
     const glow = document.getElementById("cursor-glow");
+    if (!glow) return;
 
     document.body.addEventListener("mousemove", e => {
         const { clientX, clientY } = e;
-        // The CSS transform handles the centering, so we just pass the coordinates
         glow.style.transform = `translate(${clientX}px, ${clientY}px)`;
     });
 })();
 
 
-// --- PART 2: FORM SUBMISSION LOGIC (UNCHANGED) ---
-
+// --- PART 2: FORM SUBMISSION LOGIC ---
 document.getElementById('registration-form').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const webhookURL = "YOUR_WEBHOOK_URL_HERE"; 
+    // --- IMPORTANT: PASTE YOUR DISCORD WEBHOOK URL HERE ---
+    const webhookURL = "https://discord.com/api/webhooks/1410313114809008158/FUvA8bxgD8Q8ASDWBWveeGabGgHIowHGfcXlkTpPdmeYgXzZDnBKzHnkGHWUf7NB0xTz"; 
+    // ---------------------------------------------------------
+
     const statusMessage = document.getElementById('status-message');
     const form = event.target;
     const fullName = form.elements['fullName'].value;
@@ -31,7 +32,7 @@ document.getElementById('registration-form').addEventListener('submit', function
         embeds: [
             {
                 title: "New Tournament Registration!",
-                color: 4149685, // Hex for the new Indigo color #3F51B5
+                color: 4149685, // Hex for the Indigo color #3F51B5
                 fields: [
                     { name: "Full Name", value: fullName, inline: true },
                     { name: "Age", value: age, inline: true },
